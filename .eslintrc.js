@@ -9,6 +9,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:react/jsx-runtime',
+    'plugin:cypress/recommended',
   ],
   parserOptions: {
     ecmaFeatures: {
