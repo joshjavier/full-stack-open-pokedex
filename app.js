@@ -10,11 +10,8 @@ app.get('/version', (_req, res) => {
   res.send('3')
 })
 
-// eslint-disable-next-line no-unused-vars
 app.get('/health', (_req, res) => {
-  // eslint-disable-next-line no-constant-condition
-  if (true) throw new Error('Testing failed health check...')
-  // res.send('ok')
+  res.send('ok')
 })
 
 app.listen(PORT, () => {
