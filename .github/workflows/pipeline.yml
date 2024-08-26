@@ -49,21 +49,13 @@ jobs:
         uses: sarisia/actions-status-discord@v1
         if: ${{ github.event_name == 'push' && env.SKIP == 'false' && success() }}
         env:
-          HOSTNAME: https://full-stack-open-pokedex-small-water-7155.fly.dev/
+          HOSTNAME: https://full-stack-open-pokedex-small-water-7155.fly.dev
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           nodetail: true
           title: A new version of Pokedex has been deployed
           description: |
             to [${{ env.HOSTNAME }}](${{ env.HOSTNAME }}) by ${{ github.actor }}
-
-  inspect_vars:
-    needs: [simple_deployment_pipeline]
-    runs-on: ubuntu-20.04
-    steps:
-      - run: echo "github.event_name ${{ github.event_name == 'push' }}"
-      - run: echo "env.SKIP ${{ env.SKIP == 'false' }}"
-      - run: echo "combined ${{ github.event_name == 'push' && env.SKIP == 'false' }}"
 
   tag_release:
     if: github.event_name == 'push'
