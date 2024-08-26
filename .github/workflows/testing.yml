@@ -43,3 +43,9 @@ jobs:
         env:
           COMMIT_HASH: ${{ toJson(github.sha) }}
         run: echo "$COMMIT_HASH"
+      - name: Define hostname env
+        run: |
+          echo "hostname=https://sample.com" >> "$GITHUB_ENV"
+      - name: Print hostname
+        run: |
+          echo "${{ env.hostname }}" "${{ github.hostname }}"
