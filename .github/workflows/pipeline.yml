@@ -45,19 +45,17 @@ jobs:
         run: flyctl deploy --remote-only
         env:
           FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
-      - name: Get hostname of deployed app
-        if: ${{ github.event_name == 'push' && env.SKIP == 'false' }}
-        run: |
-          echo "hostname=$(flyctl status | grep 'Hostname' | sed 's/^.*Hostname = /https:\/\//')" >> "$GITHUB_ENV"
       - name: Deploy success
         uses: sarisia/actions-status-discord@v1
         if: ${{ github.event_name == 'push' && env.SKIP == 'false' && success() }}
+        env:
+          HOSTNAME: https://full-stack-open-pokedex-small-water-7155.fly.dev/
         with:
           webhook: ${{ secrets.DISCORD_WEBHOOK }}
           nodetail: true
           title: A new version of Pokedex has been deployed
           description: |
-            to [${{ env.hostname }}](${{ env.hostname }}) by ${{ github.actor }}
+            to [${{ env.HOSTNAME }}](${{ env.HOSTNAME }}) by ${{ github.actor }}
 
   inspect_vars:
     needs: [simple_deployment_pipeline]
@@ -68,14 +66,16 @@ jobs:
       - run: echo "combined ${{ github.event_name == 'push' && env.SKIP == 'false' }}"
 
   tag_release:
-    if: ${{ github.event_name == 'push' && github.env.SKIP == 'false' }}
+    if: github.event_name == 'push'
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v4
+        if: env.SKIP == 'false'
         with:
           fetch-depth: '0'
       - name: Bump version and push tag
+        if: env.SKIP == 'false'
         uses: anothrNick/github-tag-action@v1
         env:
           DEFAULT_BUMP: 'patch'
