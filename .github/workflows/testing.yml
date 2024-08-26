@@ -51,7 +51,7 @@ jobs:
           echo "${{ env.hostname }}" "${{ github.hostname }}"
 
   run_on_skip:
-    if: ${{ github.env.SKIP == 'false' }}
+    if: ${{ env.SKIP == 'false' }}
     runs-on: ubuntu-20.04
     steps:
       - run: echo "if this is printed, then the if condition works"
