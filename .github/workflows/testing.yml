@@ -30,3 +30,16 @@ jobs:
         run: echo "$COMMIT_MESSAGES"
       - name: skip in commit messages
         run: echo "$SKIP"
+
+  inspect_vars:
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: committer
+        env:
+          COMMITTER: ${{ toJson(github.actor) }}
+        run: echo "$COMMITTER"
+      - name: commit hash
+        env:
+          COMMIT_HASH: ${{ toJson(github.sha) }}
+        run: echo "$COMMIT_HASH"
