@@ -32,7 +32,6 @@ const App = () => {
   }
 
   return (
-    <div>this shouldn't be here</div>
     <Routes>
       <Route exact path="/" element={<PokemonList pokemonList={pokemonList} />} />
       <Route exact path="/pokemon/:name" element={
