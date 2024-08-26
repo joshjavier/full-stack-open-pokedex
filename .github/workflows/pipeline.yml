@@ -63,9 +63,9 @@ jobs:
     needs: [simple_deployment_pipeline]
     runs-on: ubuntu-20.04
     steps:
-      - name: Skip tag_release
-        run: |
-          echo "${{ github.event_name == 'push' && github.env.SKIP == 'false' }}"
+      - run: echo "${{ github.event_name == 'push' }}"
+      - run: echo "${{ env.SKIP == 'false' }}"
+      - run: echo "${{ github.event_name == 'push' && env.SKIP == 'false' }}"
 
   tag_release:
     if: ${{ github.event_name == 'push' && github.env.SKIP == 'false' }}
