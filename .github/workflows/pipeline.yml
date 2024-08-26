@@ -57,8 +57,7 @@ jobs:
           nodetail: true
           title: A new version of Pokedex has been deployed
           description: |
-            to $hostname by ${{ github.actor }}
-
+            to [${{ env.hostname }}](${{ env.hostname }}) by ${{ github.actor }}
 
   tag_release:
     if: ${{ github.event_name == 'push' && github.env.SKIP == 'false' }}
