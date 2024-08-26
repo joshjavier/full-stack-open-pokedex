@@ -1,5 +1,8 @@
 name: Testing stuff
 
+env:
+  SKIP: ${{ contains(join(github.event.commits.*.message), '#skip') }}
+
 on:
   push:
     branches:
@@ -25,3 +28,5 @@ jobs:
         env:
           COMMIT_MESSAGES: ${{ toJson(github.event.commits.*.message) }}
         run: echo "$COMMIT_MESSAGES"
+      - name: skip in commit messages
+        run: echo "$SKIP"
