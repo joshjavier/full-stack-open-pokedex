@@ -1,6 +1,8 @@
 name: Periodic health check
 
-on: [push]
+on:
+  schedule:
+    - cron: '20 6 * * *'
 
 jobs:
   url_health_check:
